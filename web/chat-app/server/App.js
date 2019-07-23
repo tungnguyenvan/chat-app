@@ -2,9 +2,18 @@ const express = require('express');
 const app = express();
 const morga = require('morgan');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const mongodb = require('mongodb');
+const mongoClient = mongodb.MongoClient;
 
 // Connect to mongodb
+mongoClient.connect(process.env.URL_DB, {useNewUrlParser: true}, (err, db) => {
+    if (err) {
+        console.log("Connect database is failed");
+        return;
+    }
+    
+    console.log("Connect database is successfully");
+});
 
 app.use(morga('dev'));
 app.use(bodyParser.json());
@@ -27,6 +36,7 @@ app.use((req, res, next) => {
     next(error);
 });
 
+// Show error
 app.use((error, req, res, next) => {
     res.status(error.status || 500);
     res.json({
