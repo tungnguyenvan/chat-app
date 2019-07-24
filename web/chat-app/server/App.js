@@ -2,16 +2,18 @@ const express = require('express');
 const app = express();
 const morga = require('morgan');
 const bodyParser = require('body-parser');
-const mongodb = require('mongodb');
-const mongoClient = mongodb.MongoClient;
+const mongoose = require('mongoose');
+
+// Route
+const userRoute     = require('./api/routers/User');
 
 // Connect to mongodb
-mongoClient.connect(process.env.URL_DB, {useNewUrlParser: true}, (err, db) => {
+mongoose.connect(process.env.URL_DB, {useNewUrlParser: true}, (err, db) => {
     if (err) {
         console.log("Connect database is failed");
         return;
     }
-    
+
     console.log("Connect database is successfully");
 });
 
@@ -29,7 +31,9 @@ app.use((req, res, next) => {
     next();
 });
 
-// Router
+// Ridrect Router
+app.use('/users', userRoute);
+
 app.use((req, res, next) => {
     const error = new Error('Not found');
     error.status = 404;
