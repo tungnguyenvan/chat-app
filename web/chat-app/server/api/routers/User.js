@@ -44,10 +44,44 @@ router.post('/signup', (req, res, next) => {
         // save
         user.save()
         .then(result => {
-            return res.status(200).json(result);
+            return res.status(200).json({
+                active_account: 'localhost:3001/users/active/' + token
+            });
         })
         .catch(err => {
             return res.status(500).json(err);
+        });
+    });
+});
+
+router.get('active/:token', (req, res, next) => {
+    User.find({ token: req.params.token }).exec()
+    .then(result => {
+        if (result.length > 0) {
+            // Active user
+            const _id = result[0]._id;
+            User.update({ _id: _id }, { $set: { active: true } }).exec()
+            .then(data => {
+                res.status(200).json({
+                    message: 'Active is successfully'
+                })
+            })
+            .catch(err => {
+                res.status(404).json({
+                    message: 'The token not found'
+                });
+            });
+
+        } else {
+            // Can not find the token
+            return res.status(204).json({
+                message: 'No content'
+            });
+        }
+    })
+    .catch(err => {
+        return res.status(500).json({
+            error: err
         });
     });
 });
