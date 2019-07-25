@@ -52,7 +52,8 @@ router.post('/signup', (req, res, next) => {
             is_active:      false,
             is_online:      false,
             craete_at:      today,
-            update_at:      today
+            update_at:      today,
+            server_id:      ''
         });
 
         // save
@@ -109,7 +110,7 @@ router.get('/active/:token', (req, res, next) => {
 router.get("/:userId", (req, res, next) => {
     const _id = req.params.userId;
     User.find({ _id: _id })
-    .select(' _id email name phone_number birth_day is_online ')
+    .select(' _id email name avatar_url phone_number birth_day is_online server_id ')
     .exec()
     .then(result => {
         res.status(200).json(result);

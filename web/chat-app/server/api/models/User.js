@@ -10,13 +10,15 @@ const userSchema = mongoose.Schema({
     },
     password:       { type: String, require: true },
     name:           { type: String, require: true },
+    avatar_url:     { type: String },
     phone_number:   { type: String },
     birth_day:      { type: Number },
     token:          { type: String, require: true },
     is_active:      { type: Boolean },
     is_online:      { type: Boolean },
     craete_at:      { type: Number },
-    update_at:      { type: Number }
+    update_at:      { type: Number },
+    server_id:      { type: String }
 });
 
 module.exports = mongoose.model('user', userSchema);
