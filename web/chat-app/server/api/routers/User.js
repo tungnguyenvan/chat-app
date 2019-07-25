@@ -6,10 +6,16 @@ const jwt       = require('jsonwebtoken');
 
 const User      = require('../models/User');
 
+/**
+ * Get All users, but this api maybe not working for user
+ */
 router.get('/', (req, res, next) => {
     
 });
 
+/**
+ * User sign up new account
+ */
 router.post('/signup', (req, res, next) => {
     bcrypt.hash(req.body.password, 10, (err, hass) => {
         if (err) {
@@ -54,6 +60,9 @@ router.post('/signup', (req, res, next) => {
     });
 });
 
+/**
+ * Active user from token
+ */
 router.get('active/:token', (req, res, next) => {
     User.find({ token: req.params.token }).exec()
     .then(result => {
@@ -86,6 +95,9 @@ router.get('active/:token', (req, res, next) => {
     });
 });
 
+/**
+ * Get user infomations from user id
+ */
 router.get("/:userId", (req, res, next) => {
     const _id = req.params.userId;
     User.find({ _id: _id })
