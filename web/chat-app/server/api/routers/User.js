@@ -10,7 +10,15 @@ const User      = require('../models/User');
  * Get All users, but this api maybe not working for user
  */
 router.get('/', (req, res, next) => {
-    
+    User.find().exec()
+    .then(result => {
+        return res.status(200).json(result);
+    })
+    .catch(err => {
+        return res.status(500).json({
+            error: err
+        });
+    });
 });
 
 /**
@@ -63,13 +71,13 @@ router.post('/signup', (req, res, next) => {
 /**
  * Active user from token
  */
-router.get('active/:token', (req, res, next) => {
+router.get('/active/:token', (req, res, next) => {
     User.find({ token: req.params.token }).exec()
     .then(result => {
         if (result.length > 0) {
             // Active user
             const _id = result[0]._id;
-            User.update({ _id: _id }, { $set: { active: true } }).exec()
+            User.update({ _id: _id }, { $set: { is_active: true } }).exec()
             .then(data => {
                 res.status(200).json({
                     message: 'Active is successfully'
@@ -101,7 +109,7 @@ router.get('active/:token', (req, res, next) => {
 router.get("/:userId", (req, res, next) => {
     const _id = req.params.userId;
     User.find({ _id: _id })
-    .select(' _id email name phone_number birth_day ')
+    .select(' _id email name phone_number birth_day is_online ')
     .exec()
     .then(result => {
         res.status(200).json(result);
