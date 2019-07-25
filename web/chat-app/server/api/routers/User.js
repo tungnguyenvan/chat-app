@@ -86,4 +86,19 @@ router.get('active/:token', (req, res, next) => {
     });
 });
 
+router.get("/:userId", (req, res, next) => {
+    const _id = req.params.userId;
+    User.find({ _id: _id })
+    .select(' _id email name phone_number birth_day ')
+    .exec()
+    .then(result => {
+        res.status(200).json(result);
+    })
+    .catch(err => {
+        res.status(404).json({
+            message: err
+        })
+    });
+});
+
 module.exports = router;
