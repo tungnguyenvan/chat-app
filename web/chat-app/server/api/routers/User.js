@@ -121,4 +121,32 @@ router.get("/:userId", (req, res, next) => {
     });
 });
 
+router.post('/login', (req, res, next) => {
+    User.find({ email: req.body.email }).exec()
+    .then(result => {
+        if (result.length < 1) {
+            return res.status(404).json({
+                message: 'email not found'
+            });
+        }
+
+        bcrypt.compare(req.body.password, result[0].password, (err, hass) => {
+            if (err) {
+                return res.status(401).json({
+                    message: 'auth failed'
+                });
+            }
+
+            const user = result[0];
+            user.password = '';
+            return res.status(200).json({ user });
+        });
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        });
+    });
+});
+
 module.exports = router;

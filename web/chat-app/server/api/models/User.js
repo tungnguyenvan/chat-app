@@ -15,8 +15,8 @@ const userSchema = mongoose.Schema({
     token:          { type: String, require: true },
     is_active:      { type: Boolean },
     is_online:      { type: Boolean },
-    craete_at:      { type: String },
-    update_at:      { type: String }
+    craete_at:      { type: Number },
+    update_at:      { type: Number }
 });
 
 module.exports = mongoose.model('user', userSchema);
