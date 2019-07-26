@@ -1,0 +1,20 @@
+Chat App Document:
+
+----------- Database:
+|- users:
+|	|- _id
+|	|- email
+|	|- password
+|	|- name
+|	|- phone_number
+|	|- birt_day
+|	|- token
+|	|- is_active
+|	|- is_online
+|	|- create_at
+|	|- update_at
+
+
+|- rooms:
+|	|- _id
+|	|- name
