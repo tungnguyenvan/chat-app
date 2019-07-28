@@ -13,7 +13,9 @@ const authMiddleware = require('../middleware/AuthMiddleware');
 router.get('/', authMiddleware, (req, res, next) => {
     User.find().exec()
     .then(result => {
-        return res.status(200).json(result);
+        return res.status(200).json({
+            result: result
+        });
     })
     .catch(err => {
         return res.status(500).json({
@@ -65,7 +67,9 @@ router.post('/signup', (req, res, next) => {
             });
         })
         .catch(err => {
-            return res.status(500).json(err);
+            return res.status(500).json({
+                error :err
+            });
         });
     });
 });
@@ -114,11 +118,13 @@ router.get("/:userId", authMiddleware, (req, res, next) => {
     .select(' _id email name avatar_url phone_number birth_day is_online server_id ')
     .exec()
     .then(result => {
-        res.status(200).json(result);
+        res.status(200).json({
+            result: result
+        });
     })
     .catch(err => {
         res.status(404).json({
-            message: err
+            error: err
         })
     });
 });
@@ -149,7 +155,9 @@ router.post('/login', (req, res, next) => {
             const user = result[0];
             user.password = '';
             user.token = token;
-            return res.status(200).json({ user });
+            return res.status(200).json({ 
+                result: user
+             });
         });
     })
     .catch(err => {
