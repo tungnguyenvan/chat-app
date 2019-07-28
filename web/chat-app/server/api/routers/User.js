@@ -5,11 +5,12 @@ const bcrypt    = require('bcrypt');
 const jwt       = require('jsonwebtoken');
 
 const User      = require('../models/User');
+const authMiddleware = require('../middleware/AuthMiddleware');
 
 /**
  * Get All users, but this api maybe not working for user
  */
-router.get('/', (req, res, next) => {
+router.get('/', authMiddleware, (req, res, next) => {
     User.find().exec()
     .then(result => {
         return res.status(200).json(result);
@@ -107,7 +108,7 @@ router.get('/active/:token', (req, res, next) => {
 /**
  * Get user infomations from user id
  */
-router.get("/:userId", (req, res, next) => {
+router.get("/:userId", authMiddleware, (req, res, next) => {
     const _id = req.params.userId;
     User.find({ _id: _id })
     .select(' _id email name avatar_url phone_number birth_day is_online server_id ')
@@ -138,8 +139,16 @@ router.post('/login', (req, res, next) => {
                 });
             }
 
+            const token = jwt.sign(
+                {
+                    email: req.body.email,
+                    _id:    result[0]._id
+                }, 'secret', { expiresIn: "1h" });
+            console.log(token);
+
             const user = result[0];
             user.password = '';
+            user.token = token;
             return res.status(200).json({ user });
         });
     })
