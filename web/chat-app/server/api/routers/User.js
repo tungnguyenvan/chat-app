@@ -63,7 +63,7 @@ router.post('/signup', (req, res, next) => {
         user.save()
         .then(result => {
             return res.status(200).json({
-                active_account: 'localhost:3001/users/active/' + token
+                active_account: 'localhost:3001/user/active/' + token
             });
         })
         .catch(err => {

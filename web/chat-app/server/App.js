@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 // Route
 const userRoute     = require('./api/routers/User');
 const roomRoute     = require('./api/routers/Room');
+const messageRoute  = require('./api/routers/Message');
 
 // Connect to mongodb
 mongoose.connect(process.env.URL_DB, {useNewUrlParser: true}, (err, db) => {
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
 // Ridrect Router
 app.use('/user', userRoute);
 app.use('/room', roomRoute);
+app.use('/message', messageRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');
