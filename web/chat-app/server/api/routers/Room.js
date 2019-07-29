@@ -45,7 +45,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/:roomId', checkToken, (req, res, next) => {
-    Room.find({ _id: req.params._id }).exec()
+    Room.find({ _id: req.params.roomId }).exec()
     .then(result => {
         return res.status(200).json({
             result: result
@@ -55,6 +55,16 @@ router.get('/:roomId', checkToken, (req, res, next) => {
         return res.status(500).json({
             error: err
         })
+    });
+});
+
+router.put('/:roomId', checkToken, (req, res, next) => {
+    Room.find({ _id: req.params.roomId }).exec()
+    .then(result => {
+
+    })
+    .catch(err => {
+        
     });
 });
 
