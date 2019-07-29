@@ -5,7 +5,7 @@ const mongoose  = require('mongoose');
 const Room      = require('../models/Room');
 const checkToken = require('../middleware/AuthMiddleware');
 
-router.get('/', checkToken, (req, res, next) => {
+router.get('/', (req, res, next) => {
     Room.find().exec()
     .then(result => {
         return res.status(200).json({
@@ -19,7 +19,7 @@ router.get('/', checkToken, (req, res, next) => {
     });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', checkToken, (req, res, next) => {
     const today = Date.now();
     const room = new Room({
         _id: new mongoose.Types.ObjectId(),
@@ -59,12 +59,24 @@ router.get('/:roomId', checkToken, (req, res, next) => {
 });
 
 router.put('/:roomId', checkToken, (req, res, next) => {
-    Room.find({ _id: req.params.roomId }).exec()
-    .then(result => {
+    const updateOps = {};
+    for (const ops in req.body) {
+        updateOps[ops.propName] = ops.value;
+    }
 
+    Room.update({ _id: req.params.roomId },
+        {
+            $set: updateOps
+        }).exec()
+    .then(result => {
+        return res.status(200).json({ 
+            result: result
+         });
     })
     .catch(err => {
-        
+        return res.status(500).json({ 
+            error: err
+         });
     });
 });
 
