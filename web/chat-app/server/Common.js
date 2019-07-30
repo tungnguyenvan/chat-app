@@ -12,4 +12,5 @@ module.exports = Object.freeze({
     // Json web token key
     JWT_KEY         : 'secret',
     PRE_TOKEN       : 'Bearer',
+    PRE_TOKEN_FAIL_MESS   : 'Prefix token fail',
 });
