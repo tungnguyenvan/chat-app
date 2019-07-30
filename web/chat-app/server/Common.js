@@ -8,4 +8,8 @@ module.exports = Object.freeze({
 
     // MESSAGE
     MESS_NOT_FOUND:  'Not found',
+
+    // Json web token key
+    JWT_KEY         : 'secret',
+    PRE_TOKEN       : 'Bearer',
 });
