@@ -1,8 +1,9 @@
-const express = require('express');
-const app = express();
-const morga = require('morgan');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const express       = require('express');
+const app           = express();
+const morga         = require('morgan');
+const bodyParser    = require('body-parser');
+const mongoose      = require('mongoose');
+const Common        = require('./Common');
 
 // Route
 const userRoute     = require('./api/routers/User');
@@ -28,7 +29,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Header', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
     if (req.method == 'OPTIONS') {
         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(200).json()
+        return res.status(Common.STATUS_OK).json()
     }
     next();
 });
@@ -39,14 +40,14 @@ app.use('/room', roomRoute);
 app.use('/message', messageRoute);
 
 app.use((req, res, next) => {
-    const error = new Error('Not found');
-    error.status = 404;
+    const error = new Error(Common.MESS_NOT_FOUND);
+    error.status = Common.STATUS_NOT_FOUND;
     next(error);
 });
 
 // Show error
 app.use((error, req, res, next) => {
-    res.status(error.status || 500);
+    res.status(error.status);
     res.json({
         error : {
             message: error.message

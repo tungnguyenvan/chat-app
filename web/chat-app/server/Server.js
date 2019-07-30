@@ -1,7 +1,7 @@
-const http = require('http');
-const app = require('./App');
+const http      = require('http');
+const app       = require('./App');
+const Common    = require('./Common');
 
-const port = process.env.PORT || 3001
 const server = http.createServer(app);
 
-server.listen(port);
+server.listen(Common.SERSER_PORT);
