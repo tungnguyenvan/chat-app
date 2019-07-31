@@ -1,25 +1,33 @@
 import './LoginPage.css';
 import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Container } from 'react-bootstrap'
 
-const Common = require('../../Common');
+import Topbar from '../../components/Topbar';
+import LoginForm from '../../components/LoginForm';
 
 class LoginPage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isShowProgressbar: true
+        };
+    }
+
+    componentDidMount() {
+        this.setState({
+            isShowProgressbar: false
+        });
+    }
+
     render() {
         return (
-            <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">
-                { Common.APP_NAME }
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                
-            </Navbar.Collapse>
-            <Nav>
-                <Nav.Link href="#">About</Nav.Link>
-                <Nav.Link href="#">Contact</Nav.Link>
-            </Nav>
-            </Navbar>
+            <div>
+                <Topbar isShowProgressbar={this.state.isShowProgressbar} />
+                <Container>
+                    <LoginForm />
+                </Container>
+            </div>
         );
     }
 }
