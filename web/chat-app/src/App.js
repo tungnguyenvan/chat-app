@@ -3,7 +3,7 @@ import LoginPage from './pages/login/LoginPage';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" align='center'>
       <LoginPage />
     </div>
   );
