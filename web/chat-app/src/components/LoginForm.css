@@ -6,5 +6,6 @@
     margin-top: 3%
 }
 .title {
-    margin-top: 10pt
+    margin-top: 10pt;
+    font-family: 'Courier New', Courier, monospace
 }
