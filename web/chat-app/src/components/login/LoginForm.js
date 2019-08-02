@@ -41,7 +41,7 @@ const MyCard = styled(Card)({
 class LoginForm extends React.Component {
 
     render() {
-        const { onChangeToRegister } = this.props;
+        const { onToggleLogin, isLogin } = this.props;
 
         return (
             <div className='login-form'>
@@ -50,7 +50,10 @@ class LoginForm extends React.Component {
                         <MyCard>
                             <CardContent>
 
-                                <h1 className='title'>Login</h1>
+                                {
+                                    isLogin && <h1 className='title'>Login</h1>
+                                    || <h1 className='title'>Register</h1>
+                                }
 
                                 <div align='left'>
                                     <Form className='FormLogin'>
@@ -78,15 +81,45 @@ class LoginForm extends React.Component {
                                                 fullWidth/>
                                         </Col>
 
-                                        <Col>
-                                            <ButtonRegister onClick={ onChangeToRegister } >new account</ButtonRegister>
-                                        </Col>
+                                        {
+                                            !isLogin &&
+                                            <Col>
+                                                <TextField
+                                                    label="Repassword"
+                                                    type="password"
+                                                    name="rePassword"
+                                                    className={classes.textField}
+                                                    margin="normal"
+                                                    variant="outlined"
+                                                    fullWidth/>
+                                            </Col>
+                                        }
 
-                                        <Col >
-                                            <div align='right'>
-                                                <MyButton>Login</MyButton>
-                                            </div>
-                                        </Col>
+                                        {
+                                            isLogin &&
+                                            <Col>
+                                                <ButtonRegister onClick={ onToggleLogin } >new account</ButtonRegister>
+                                            </Col>
+                                            ||
+                                            <Col>
+                                                <ButtonRegister onClick={ onToggleLogin } >Back to login</ButtonRegister>
+                                            </Col>
+                                        }
+
+                                        {
+                                            isLogin &&
+                                            <Col >
+                                                <div align='right'>
+                                                    <MyButton>Login</MyButton>
+                                                </div>
+                                            </Col> 
+                                            ||
+                                            <Col >
+                                                <div align='right'>
+                                                    <MyButton>Register</MyButton>
+                                                </div>
+                                            </Col>
+                                        }
 
                                     </Form>
                                 </div>

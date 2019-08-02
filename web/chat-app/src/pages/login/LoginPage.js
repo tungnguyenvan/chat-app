@@ -14,7 +14,7 @@ class LoginPage extends React.Component {
             isLogin             : true,
         };
 
-        this.onChangeToRegister = this.onChangeToRegister.bind(this);
+        this.onToggleLogin = this.onToggleLogin.bind(this);
     }
 
     componentDidMount() {
@@ -23,9 +23,8 @@ class LoginPage extends React.Component {
         });
     }
 
-    onChangeToRegister() {
+    onToggleLogin() {
         this.setState({
-            isShowProgressbar   : true,
             isLogin             : !this.state.isLogin
         });
     }
@@ -36,9 +35,7 @@ class LoginPage extends React.Component {
             <div>
                 <Topbar isShowProgressbar={this.state.isShowProgressbar} />
                 <Container>
-                    {
-                        this.state.isLogin && <LoginForm onChangeToRegister={this.onChangeToRegister} isLogin={this.state.isLogin}/>
-                    }
+                    <LoginForm onToggleLogin={this.onToggleLogin} isLogin={this.state.isLogin}/>
                 </Container>
             </div>
         );
