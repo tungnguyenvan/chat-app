@@ -4,7 +4,7 @@ import { Container, Navbar, Nav } from 'react-bootstrap';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
 
-import Common from '../Common';
+import Common from '../../Common';
 
 class Topbar extends React.Component {
 

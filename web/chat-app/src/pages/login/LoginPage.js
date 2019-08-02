@@ -2,8 +2,8 @@ import './LoginPage.css';
 import React from 'react';
 import { Container } from 'react-bootstrap'
 
-import Topbar from '../../components/Topbar';
-import LoginForm from '../../components/LoginForm';
+import Topbar from '../../components/topbar/Topbar';
+import LoginForm from '../../components/login/LoginForm';
 
 class LoginPage extends React.Component {
     constructor(props) {
