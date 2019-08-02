@@ -5,6 +5,8 @@ import { Container } from 'react-bootstrap'
 import Topbar from '../../components/topbar/Topbar';
 import LoginForm from '../../components/login/LoginForm';
 
+//const Common = require('./LoginCommon');
+
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);

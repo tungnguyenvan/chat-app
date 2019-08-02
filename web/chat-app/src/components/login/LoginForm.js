@@ -6,6 +6,13 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, styled } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+
+const Common = require('./LoginFormCommon');
 
 const classes = makeStyles(theme => ({
     textField: {
@@ -38,98 +45,119 @@ const MyCard = styled(Card)({
     maxWidth: 400
 });
 
+
+
 class LoginForm extends React.Component {
 
-    render() {
-        const { onToggleLogin, isLogin } = this.props;
+render() {
+    const { onToggleLogin, isLogin } = this.props;
 
-        return (
-            <div className='login-form'>
-                <Row>
-                    <Col md={{ span: 6, offset: 3 }}>
-                        <MyCard>
-                            <CardContent>
+    return (
+        <div className='login-form'>
+            <Row>
+                <Col md={{ span: 6, offset: 3 }}>
+                    <MyCard>
+                        <CardContent>
 
-                                {
-                                    isLogin && <h1 className='title'>Login</h1>
-                                    || <h1 className='title'>Register</h1>
-                                }
+                            {
+                                isLogin && <h1 className='title'>{ Common.LOGIN_TITLE }</h1>
+                                || <h1 className='title'>{ Common.REGISTER_TITLE }</h1>
+                            }
 
-                                <div align='left'>
-                                    <Form className='FormLogin'>
+                            <div align='left'>
+                                <Form className='FormLogin'>
 
+                                    {
+                                        !isLogin &&
+                                        <div>
                                         <Col>
                                             <TextField
-                                                label="Email"
-                                                type="email"
-                                                name="email"
+                                                label="Name"
+                                                type="name"
+                                                name="name"
                                                 className={classes.textField}
-                                                autoComplete="email"
                                                 margin="normal"
                                                 variant="outlined"
                                                 fullWidth/>
                                         </Col>
+                                        <Col>
 
+                                        </Col>
+                                        </div>
+                                    }
+
+                                    <Col>
+                                        <TextField
+                                            label="Email"
+                                            type="email"
+                                            name="email"
+                                            className={classes.textField}
+                                            autoComplete="email"
+                                            margin="normal"
+                                            variant="outlined"
+                                            fullWidth/>
+                                    </Col>
+
+                                    <Col>
+                                        <TextField
+                                            label="Password"
+                                            type="password"
+                                            name="password"
+                                            className={classes.textField}
+                                            margin="normal"
+                                            variant="outlined"
+                                            fullWidth/>
+                                    </Col>
+
+                                    {
+                                        !isLogin &&
                                         <Col>
                                             <TextField
-                                                label="Password"
+                                                label="Repassword"
                                                 type="password"
-                                                name="password"
+                                                name="rePassword"
                                                 className={classes.textField}
                                                 margin="normal"
                                                 variant="outlined"
                                                 fullWidth/>
                                         </Col>
+                                    }
 
-                                        {
-                                            !isLogin &&
-                                            <Col>
-                                                <TextField
-                                                    label="Repassword"
-                                                    type="password"
-                                                    name="rePassword"
-                                                    className={classes.textField}
-                                                    margin="normal"
-                                                    variant="outlined"
-                                                    fullWidth/>
-                                            </Col>
-                                        }
+                                    {
+                                        isLogin &&
+                                        <Col>
+                                            <ButtonRegister onClick={ onToggleLogin } >{ Common.NEW_ACCOUNT }</ButtonRegister>
+                                        </Col>
+                                        ||
+                                        <Col>
+                                            <ButtonRegister onClick={ onToggleLogin } >{ Common.BACK_TO_LOGIN }</ButtonRegister>
+                                        </Col>
+                                    }
 
-                                        {
-                                            isLogin &&
-                                            <Col>
-                                                <ButtonRegister onClick={ onToggleLogin } >new account</ButtonRegister>
-                                            </Col>
-                                            ||
-                                            <Col>
-                                                <ButtonRegister onClick={ onToggleLogin } >Back to login</ButtonRegister>
-                                            </Col>
-                                        }
+                                    {
+                                        isLogin &&
+                                        <Col >
+                                            <div align='right'>
+                                                <MyButton>{ Common.LOGIN_TITLE }</MyButton>
+                                            </div>
+                                        </Col> 
+                                        ||
+                                        <Col >
+                                            <div align='right'>
+                                                <MyButton>{ Common.REGISTER_TITLE }</MyButton>
+                                            </div>
+                                        </Col>
+                                    }
 
-                                        {
-                                            isLogin &&
-                                            <Col >
-                                                <div align='right'>
-                                                    <MyButton>Login</MyButton>
-                                                </div>
-                                            </Col> 
-                                            ||
-                                            <Col >
-                                                <div align='right'>
-                                                    <MyButton>Register</MyButton>
-                                                </div>
-                                            </Col>
-                                        }
-
-                                    </Form>
-                                </div>
-                            </CardContent>
-                        </MyCard>
-                    </Col>
-                </Row>
-            </div>
-        );
-    }
+                                </Form>
+                            </div>
+                        </CardContent>
+                    </MyCard>
+                </Col>
+            </Row>
+        </div>
+    );
+}
 }
 
 export default LoginForm;
