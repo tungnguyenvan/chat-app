@@ -27,13 +27,22 @@ const MyButton = styled(Button)({
     padding: '0 30px',
 });
 
+const ButtonRegister = styled(Button)({
+    color: 'blue',
+    border: 0,
+    fontSize: 11
+});
+
 const MyCard = styled(Card)({
     minWidth: 400,
     maxWidth: 400
 });
 
 class LoginForm extends React.Component {
+
     render() {
+        const { onChangeToRegister } = this.props;
+
         return (
             <div className='login-form'>
                 <Row>
@@ -70,7 +79,7 @@ class LoginForm extends React.Component {
                                         </Col>
 
                                         <Col>
-                                            <a href='#/register'>new account</a>
+                                            <ButtonRegister onClick={ onChangeToRegister } >new account</ButtonRegister>
                                         </Col>
 
                                         <Col >
