@@ -1,6 +1,7 @@
 module.exports = Object.freeze({
     // PORT
     SERSER_PORT: 3001,
+    DATABASE_URL: 'mongodb://localhost:27017/chat-app',
 
     // STATUS CODE
     STATUS_OK       : 200,

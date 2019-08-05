@@ -10,10 +10,22 @@ const userRoute     = require('./api/routers/User');
 const roomRoute     = require('./api/routers/Room');
 const messageRoute  = require('./api/routers/Message');
 
+// CORS
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Header', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
+    if (req.method == 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(Common.STATUS_OK).json()
+    }
+    next();
+});
+
 // Connect to mongodb
-mongoose.connect(process.env.URL_DB, {useNewUrlParser: true}, (err, db) => {
+mongoose.connect(Common.DATABASE_URL, {useNewUrlParser: true}, (err, db) => {
     if (err) {
-        console.log("Connect database is failed");
+        console.log("Connect database is failed: " + err);
         return;
     }
 
@@ -22,17 +34,6 @@ mongoose.connect(process.env.URL_DB, {useNewUrlParser: true}, (err, db) => {
 
 app.use(morga('dev'));
 app.use(bodyParser.json());
-
-// CORS
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Header', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
-    if (req.method == 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(Common.STATUS_OK).json()
-    }
-    next();
-});
 
 // Ridrect Router
 app.use('/user', userRoute);

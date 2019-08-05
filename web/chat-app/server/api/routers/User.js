@@ -10,7 +10,7 @@ const authMiddleware = require('../middleware/AuthMiddleware');
 /**
  * Get All users, but this api maybe not working for user
  */
-router.get('/', authMiddleware, (req, res, next) => {
+router.get('/', (req, res, next) => {
     User.find().exec()
     .then(result => {
         return res.status(200).json({

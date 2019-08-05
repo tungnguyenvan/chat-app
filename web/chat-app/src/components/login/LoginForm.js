@@ -6,11 +6,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, styled } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import Api from '../../Api';
 
 const Common = require('./LoginFormCommon');
 
@@ -49,115 +45,186 @@ const MyCard = styled(Card)({
 
 class LoginForm extends React.Component {
 
-render() {
-    const { onToggleLogin, isLogin } = this.props;
+    constructor(props) {
+        super(props);
 
-    return (
-        <div className='login-form'>
-            <Row>
-                <Col md={{ span: 6, offset: 3 }}>
-                    <MyCard>
-                        <CardContent>
+        this.state = {
+            name : '',
+            email : '',
+            password : '',
+            repassword : ''
+        }
 
-                            {
-                                isLogin && <h1 className='title'>{ Common.LOGIN_TITLE }</h1>
-                                || <h1 className='title'>{ Common.REGISTER_TITLE }</h1>
-                            }
+        this.loginEvent = this.loginEvent.bind(this);
+        this.registerEvent = this.registerEvent.bind(this);
+        this.onNameChange = this.onNameChange.bind(this);
+        this.onEmailChange = this.onEmailChange.bind(this);
+        this.onPasswordChange = this.onPasswordChange.bind(this);
+        this.onRePasswordChange = this.onRePasswordChange.bind(this);
+    }
 
-                            <div align='left'>
-                                <Form className='FormLogin'>
+    onNameChange(e) {
+        this.setState({
+            name : e.target.value
+        });
+    }
 
-                                    {
-                                        !isLogin &&
-                                        <div>
+    onEmailChange(e) {
+        this.setState({
+            email : e.target.value
+        });
+    }
+
+    onPasswordChange(e) {
+        this.setState({
+            password: e.target.value
+        });
+    }
+
+    onRePasswordChange(e) {
+        this.setState({
+            repassword : e.target.value
+        });
+    }
+
+    loginEvent(e) {
+        const user = {
+            email: this.state.email,
+            password: this.state.password
+        }
+    }
+
+    registerEvent(e) {
+
+    }
+
+    componentDidMount() {
+        Api.get('user/')
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log('this is error: ' + err);
+            });
+    }
+
+    render() {
+        const { onToggleLogin, isLogin } = this.props;
+
+        return (
+            <div className='login-form'>
+                <Row>
+                    <Col md={{ span: 6, offset: 3 }}>
+                        <MyCard>
+                            <CardContent>
+
+                                {
+                                    isLogin && <h1 className='title'>{ Common.LOGIN_TITLE }</h1>
+                                    || <h1 className='title'>{ Common.REGISTER_TITLE }</h1>
+                                }
+
+                                <div align='left'>
+                                    <Form className='FormLogin'>
+
+                                        {
+                                            !isLogin &&
+                                            <div>
+                                            <Col>
+                                                <TextField
+                                                    onChange={this.onNameChange}
+                                                    ref='name'
+                                                    label="Name"
+                                                    type="name"
+                                                    name="name"
+                                                    className={classes.textField}
+                                                    margin="normal"
+                                                    variant="outlined"
+                                                    fullWidth/>
+                                            </Col>
+                                            <Col>
+
+                                            </Col>
+                                            </div>
+                                        }
+
                                         <Col>
                                             <TextField
-                                                label="Name"
-                                                type="name"
-                                                name="name"
+                                                onChange={this.onEmailChange}
+                                                ref='email'
+                                                label="Email"
+                                                type="email"
+                                                name="email"
                                                 className={classes.textField}
+                                                autoComplete="email"
                                                 margin="normal"
                                                 variant="outlined"
                                                 fullWidth/>
                                         </Col>
-                                        <Col>
 
-                                        </Col>
-                                        </div>
-                                    }
-
-                                    <Col>
-                                        <TextField
-                                            label="Email"
-                                            type="email"
-                                            name="email"
-                                            className={classes.textField}
-                                            autoComplete="email"
-                                            margin="normal"
-                                            variant="outlined"
-                                            fullWidth/>
-                                    </Col>
-
-                                    <Col>
-                                        <TextField
-                                            label="Password"
-                                            type="password"
-                                            name="password"
-                                            className={classes.textField}
-                                            margin="normal"
-                                            variant="outlined"
-                                            fullWidth/>
-                                    </Col>
-
-                                    {
-                                        !isLogin &&
                                         <Col>
                                             <TextField
-                                                label="Repassword"
+                                                onChange={this.onPasswordChange}
+                                                ref='password'
+                                                label="Password"
                                                 type="password"
-                                                name="rePassword"
+                                                name="password"
                                                 className={classes.textField}
                                                 margin="normal"
                                                 variant="outlined"
                                                 fullWidth/>
                                         </Col>
-                                    }
 
-                                    {
-                                        isLogin &&
-                                        <Col>
-                                            <ButtonRegister onClick={ onToggleLogin } >{ Common.NEW_ACCOUNT }</ButtonRegister>
-                                        </Col>
-                                        ||
-                                        <Col>
-                                            <ButtonRegister onClick={ onToggleLogin } >{ Common.BACK_TO_LOGIN }</ButtonRegister>
-                                        </Col>
-                                    }
+                                        {
+                                            !isLogin &&
+                                            <Col>
+                                                <TextField
+                                                    onChange={this.onRePasswordChange}
+                                                    ref='repassword'
+                                                    label="Repassword"
+                                                    type="password"
+                                                    name="rePassword"
+                                                    className={classes.textField}
+                                                    margin="normal"
+                                                    variant="outlined"
+                                                    fullWidth/>
+                                            </Col>
+                                        }
 
-                                    {
-                                        isLogin &&
-                                        <Col >
-                                            <div align='right'>
-                                                <MyButton>{ Common.LOGIN_TITLE }</MyButton>
-                                            </div>
-                                        </Col> 
-                                        ||
-                                        <Col >
-                                            <div align='right'>
-                                                <MyButton>{ Common.REGISTER_TITLE }</MyButton>
-                                            </div>
-                                        </Col>
-                                    }
+                                        {
+                                            isLogin &&
+                                            <Col>
+                                                <ButtonRegister onClick={ onToggleLogin } >{ Common.NEW_ACCOUNT }</ButtonRegister>
+                                            </Col>
+                                            ||
+                                            <Col>
+                                                <ButtonRegister onClick={ onToggleLogin } >{ Common.BACK_TO_LOGIN }</ButtonRegister>
+                                            </Col>
+                                        }
 
-                                </Form>
-                            </div>
-                        </CardContent>
-                    </MyCard>
-                </Col>
-            </Row>
-        </div>
-    );
-}
+                                        {
+                                            isLogin &&
+                                            <Col >
+                                                <div align='right'>
+                                                    <MyButton onClick={this.loginEvent}>{ Common.LOGIN_TITLE }</MyButton>
+                                                </div>
+                                            </Col> 
+                                            ||
+                                            <Col >
+                                                <div align='right'>
+                                                    <MyButton onClick={this.registerEvent}>{ Common.REGISTER_TITLE }</MyButton>
+                                                </div>
+                                            </Col>
+                                        }
+
+                                    </Form>
+                                </div>
+                            </CardContent>
+                        </MyCard>
+                    </Col>
+                </Row>
+            </div>
+        );
+    }
 }
 
 export default LoginForm;
