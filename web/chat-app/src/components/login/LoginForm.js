@@ -52,7 +52,8 @@ class LoginForm extends React.Component {
             name : '',
             email : '',
             password : '',
-            repassword : ''
+            repassword : '',
+            isShowProgressbar : true
         }
 
         this.loginEvent = this.loginEvent.bind(this);
@@ -88,6 +89,8 @@ class LoginForm extends React.Component {
     }
 
     loginEvent(e) {
+        this.props.showProgressbar();
+
         const user = {
             email: this.state.email,
             password: this.state.password
@@ -95,7 +98,7 @@ class LoginForm extends React.Component {
     }
 
     registerEvent(e) {
-
+        this.props.showProgressbar();
     }
 
     componentDidMount() {

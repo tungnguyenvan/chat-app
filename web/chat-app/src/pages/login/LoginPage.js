@@ -17,6 +17,19 @@ class LoginPage extends React.Component {
         };
 
         this.onToggleLogin = this.onToggleLogin.bind(this);
+        this.showProgressbar = this.showProgressbar.bind(this);
+    }
+
+    showProgressbar() {
+        this.setState({
+            isShowProgressbar : true
+        });
+    }
+
+    dimissProgressbar() {
+        this.setState({
+            isShowProgressbar :  false
+        });
     }
 
     componentDidMount() {
@@ -37,7 +50,10 @@ class LoginPage extends React.Component {
             <div>
                 <Topbar isShowProgressbar={this.state.isShowProgressbar} />
                 <Container>
-                    <LoginForm onToggleLogin={this.onToggleLogin} isLogin={this.state.isLogin}/>
+                    <LoginForm 
+                        onToggleLogin={this.onToggleLogin} 
+                        isLogin={this.state.isLogin} 
+                        showProgressbar={this.showProgressbar}/>
                 </Container>
             </div>
         );
