@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap'
 
 import Topbar from '../../components/topbar/Topbar';
 import LoginForm from '../../components/login/LoginForm';
+import RegisterDialog from '../../dialogs/register/RegisterDialog';
 
 //const Common = require('./LoginCommon');
 
@@ -14,21 +15,38 @@ class LoginPage extends React.Component {
         this.state = {
             isShowProgressbar   : true,
             isLogin             : true,
+            registerDialogIsOpen : false,
+            registerSuccess      : false,
         };
 
         this.onToggleLogin = this.onToggleLogin.bind(this);
         this.showProgressbar = this.showProgressbar.bind(this);
+        this.showDialog = this.showDialog.bind(this);
+        this.closeDialog = this.closeDialog.bind(this);
     }
 
     showProgressbar() {
         this.setState({
-            isShowProgressbar : true
+            isShowProgressbar : true,
         });
     }
 
     dimissProgressbar() {
         this.setState({
             isShowProgressbar :  false
+        });
+    }
+
+    showDialog(registerSuccess) {
+        this.setState({
+            registerDialogIsOpen: true,
+            registerSuccess: registerSuccess,
+        });
+    }
+
+    closeDialog() {
+        this.setState({
+            registerDialogIsOpen: false,
         });
     }
 
@@ -53,7 +71,13 @@ class LoginPage extends React.Component {
                     <LoginForm 
                         onToggleLogin={this.onToggleLogin} 
                         isLogin={this.state.isLogin} 
-                        showProgressbar={this.showProgressbar}/>
+                        showProgressbar={this.showProgressbar}
+                        showDialog={this.showDialog}/>
+
+                    <RegisterDialog 
+                        registerDialogIsOpen={this.state.registerDialogIsOpen} 
+                        closeDialog={this.closeDialog}
+                        registerSuccess={this.state.registerSuccess}/>
                 </Container>
             </div>
         );

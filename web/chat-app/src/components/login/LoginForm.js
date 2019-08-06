@@ -99,6 +99,7 @@ class LoginForm extends React.Component {
 
     registerEvent(e) {
         this.props.showProgressbar();
+        this.props.showDialog(true); // This is show dialog
     }
 
     componentDidMount() {

@@ -10,25 +10,29 @@ const Common = require('./RegisterDialogCommon');
 
 class RegisterDialog extends React.Component {
     render() {
-        const [ registerDialogIsOpen, onRegisterDialogClose ] = this.props;
+        const { registerDialogIsOpen, closeDialog, registerSuccess } = this.props;
 
         return(
             <div>
                 <Dialog
                     open={registerDialogIsOpen}
-                    onClode={onRegisterDialogClose}
+                    onClose={closeDialog}
                     aria-labelledby='alert-dialog-title'
                     aria-describedby="alert-dialog-description"
                     >
-                        <DialogTitle id="alert-dialog-title">{ Common.ALERT_TITLE }</DialogTitle>
+                        <DialogTitle id="alert-dialog-title">
+                            { 
+                                registerSuccess && Common.ALERT_TITLE_SUCCESS || Common.ALERT_TITLE_FAIL
+                            }
+                        </DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
                                 {
-                                    Common.ALERT_CONTENT
+                                    registerSuccess && Common.ALERT_CONTENT_SUCCESS || Common.ALERT_CONTENT_FAIL
                                 }
                             </DialogContentText>
                             <DialogActions>
-                                <Button onClick={onRegisterDialogClose}>{ Common.ALERT_ACTION_OK_TEXT }</Button>
+                                <Button onClick={closeDialog}>{ Common.ALERT_ACTION_OK_TEXT }</Button>
                             </DialogActions>
                         </DialogContent>
 
