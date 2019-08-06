@@ -30,13 +30,12 @@ router.get('/', (req, res, next) => {
 router.post('/signup', (req, res, next) => {
     bcrypt.hash(req.body.password, 10, (err, hass) => {
         if (err) {
-            return res.status(process.env.ERROR).json({
+            return res.status(500).json({
                 error: err
             });
         }
 
         const today = Date.now();
-        console.log(today);
         const _id = new mongoose.Types.ObjectId();
         const token = jwt.sign(
             {
@@ -67,6 +66,7 @@ router.post('/signup', (req, res, next) => {
             });
         })
         .catch(err => {
+            console.log(err);
             return res.status(500).json({
                 error :err
             });
@@ -140,6 +140,7 @@ router.post('/login', (req, res, next) => {
 
         bcrypt.compare(req.body.password, result[0].password, (err, hass) => {
             if (err) {
+                console.log(err);
                 return res.status(401).json({
                     message: 'auth failed'
                 });

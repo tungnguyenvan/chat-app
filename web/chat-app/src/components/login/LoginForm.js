@@ -95,21 +95,38 @@ class LoginForm extends React.Component {
             email: this.state.email,
             password: this.state.password
         }
+
+        Api.post('user/login/', { user })
+            .then(result => {
+                console.log(result);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     registerEvent(e) {
         this.props.showProgressbar();
-        this.props.showDialog(true); // This is show dialog
+        //this.props.showDialog(true); // This is show dialog
+        
+        const user = {
+            email   :   this.state.email,
+            name    :   this.state.name,
+            password:   this.state.password,
+            phone_number:   0, //TODO: update phone number from form
+            birth_day:      0, // TODO: update birth day timestamp
+        }
+
+        Api.post('user/signup', user)
+            .then(result => {
+                console.log(result);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     componentDidMount() {
-        Api.get('user/')
-            .then(res => {
-                console.log(res);
-            })
-            .catch(err => {
-                console.log('this is error: ' + err);
-            });
     }
 
     render() {
