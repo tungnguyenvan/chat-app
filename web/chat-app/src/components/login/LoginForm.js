@@ -42,7 +42,6 @@ const MyCard = styled(Card)({
 });
 
 
-
 class LoginForm extends React.Component {
 
     constructor(props) {
@@ -53,7 +52,13 @@ class LoginForm extends React.Component {
             email : '',
             password : '',
             repassword : '',
-            isShowProgressbar : true
+            isShowProgressbar : true,
+
+            // show error in textfield
+            isNameError:    false,
+            isEmailError:   false,
+            isPasswordError: false,
+            isRePasswordError: false,
         }
 
         this.loginEvent = this.loginEvent.bind(this);
@@ -64,27 +69,35 @@ class LoginForm extends React.Component {
         this.onRePasswordChange = this.onRePasswordChange.bind(this);
     }
 
+    checkTextIsEmpty(str) {
+        return (str.length === 0 || !str.trim());
+    }
+
     onNameChange(e) {
         this.setState({
-            name : e.target.value
+            name : e.target.value,
+            isNameError : false
         });
     }
 
     onEmailChange(e) {
         this.setState({
-            email : e.target.value
+            email : e.target.value,
+            isEmailError : false
         });
     }
 
     onPasswordChange(e) {
         this.setState({
-            password: e.target.value
+            password: e.target.value,
+            isPasswordError: false
         });
     }
 
     onRePasswordChange(e) {
         this.setState({
-            repassword : e.target.value
+            repassword : e.target.value,
+            isRePasswordError: false
         });
     }
 
@@ -96,7 +109,7 @@ class LoginForm extends React.Component {
             password: this.state.password
         }
 
-        Api.post('user/login/', { user })
+        Api.post('user/login/', user)
             .then(result => {
                 console.log(result);
             })
@@ -106,9 +119,35 @@ class LoginForm extends React.Component {
     }
 
     registerEvent(e) {
-        this.props.showProgressbar();
         //this.props.showDialog(true); // This is show dialog
+
+        // Check name is empty
+        if (this.checkTextIsEmpty(this.state.name)) {
+            return this.setState({
+                isNameError: true
+            });
+        }
         
+        // Check email is empty
+        if (this.checkTextIsEmpty(this.state.email)) {
+            return this.setState({
+                isEmailError: true
+            });
+        }
+
+        if (this.checkTextIsEmpty(this.state.password)) {
+            return this.setState({
+                isPasswordError: true
+            });
+        }
+
+        this.props.showProgressbar();
+        if (this.state.password != this.state.repassword) {
+            return this.setState({
+                isRePasswordError: true
+            });
+        }
+
         const user = {
             email   :   this.state.email,
             name    :   this.state.name,
@@ -119,10 +158,12 @@ class LoginForm extends React.Component {
 
         Api.post('user/signup', user)
             .then(result => {
-                console.log(result);
+                this.props.showDialog(true, result.data.active_account);
+                this.props.dimissProgressbar();
             })
             .catch(err => {
-                console.log(err);
+                this.props.showDialog(false, err);
+                this.props.dimissProgressbar();
             });
     }
 
@@ -152,6 +193,8 @@ class LoginForm extends React.Component {
                                             <div>
                                             <Col>
                                                 <TextField
+                                                    required
+                                                    error={this.state.isNameError}
                                                     onChange={this.onNameChange}
                                                     ref='name'
                                                     label="Name"
@@ -170,6 +213,8 @@ class LoginForm extends React.Component {
 
                                         <Col>
                                             <TextField
+                                                required
+                                                error={this.state.isEmailError}
                                                 onChange={this.onEmailChange}
                                                 ref='email'
                                                 label="Email"
@@ -184,6 +229,8 @@ class LoginForm extends React.Component {
 
                                         <Col>
                                             <TextField
+                                                required
+                                                error={this.state.isPasswordError}
                                                 onChange={this.onPasswordChange}
                                                 ref='password'
                                                 label="Password"
@@ -199,6 +246,8 @@ class LoginForm extends React.Component {
                                             !isLogin &&
                                             <Col>
                                                 <TextField
+                                                    required
+                                                    error={this.state.isRePasswordError}
                                                     onChange={this.onRePasswordChange}
                                                     ref='repassword'
                                                     label="Repassword"

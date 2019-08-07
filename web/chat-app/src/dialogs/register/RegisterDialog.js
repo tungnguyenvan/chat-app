@@ -10,7 +10,7 @@ const Common = require('./RegisterDialogCommon');
 
 class RegisterDialog extends React.Component {
     render() {
-        const { registerDialogIsOpen, closeDialog, registerSuccess } = this.props;
+        const { registerDialogIsOpen, closeDialog, registerSuccess, messageRegister } = this.props;
 
         return(
             <div>
@@ -29,6 +29,9 @@ class RegisterDialog extends React.Component {
                             <DialogContentText id="alert-dialog-description">
                                 {
                                     registerSuccess && Common.ALERT_CONTENT_SUCCESS || Common.ALERT_CONTENT_FAIL
+                                }
+                                {
+                                    ' \n[Message: ' + messageRegister + ']'
                                 }
                             </DialogContentText>
                             <DialogActions>

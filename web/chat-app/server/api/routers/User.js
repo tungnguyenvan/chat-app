@@ -146,6 +146,12 @@ router.post('/login', (req, res, next) => {
                 });
             }
 
+            if (!result[0].is_active) {
+                return res.status(403).json({
+                    error: 'Account unactived'
+                });
+            }
+
             const token = jwt.sign(
                 {
                     email: req.body.email,

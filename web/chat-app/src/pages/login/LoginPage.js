@@ -17,11 +17,13 @@ class LoginPage extends React.Component {
             isLogin             : true,
             registerDialogIsOpen : false,
             registerSuccess      : false,
+            messageRegister     : '',
         };
 
         this.onToggleLogin = this.onToggleLogin.bind(this);
         this.showProgressbar = this.showProgressbar.bind(this);
         this.showDialog = this.showDialog.bind(this);
+        this.dimissProgressbar = this.dimissProgressbar.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
     }
 
@@ -37,16 +39,18 @@ class LoginPage extends React.Component {
         });
     }
 
-    showDialog(registerSuccess) {
+    showDialog(registerSuccess, messageRegister) { //TODO: remove token
         this.setState({
             registerDialogIsOpen: true,
             registerSuccess: registerSuccess,
+            messageRegister:  messageRegister
         });
     }
 
     closeDialog() {
         this.setState({
             registerDialogIsOpen: false,
+            isLogin: true
         });
     }
 
@@ -72,12 +76,14 @@ class LoginPage extends React.Component {
                         onToggleLogin={this.onToggleLogin} 
                         isLogin={this.state.isLogin} 
                         showProgressbar={this.showProgressbar}
-                        showDialog={this.showDialog}/>
+                        showDialog={this.showDialog}
+                        dimissProgressbar={this.dimissProgressbar}/>
 
                     <RegisterDialog 
                         registerDialogIsOpen={this.state.registerDialogIsOpen} 
                         closeDialog={this.closeDialog}
-                        registerSuccess={this.state.registerSuccess}/>
+                        registerSuccess={this.state.registerSuccess}
+                        messageRegister={this.state.messageRegister}/>
                 </Container>
             </div>
         );
