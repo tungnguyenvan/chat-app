@@ -102,8 +102,21 @@ class LoginForm extends React.Component {
     }
 
     loginEvent(e) {
-        this.props.showProgressbar();
+        // Check email is empty
+        if (this.checkTextIsEmpty(this.state.email)) {
+            return this.setState({
+                isEmailError: true
+            });
+        }
 
+        // Check password is empty
+        if (this.checkTextIsEmpty(this.state.password)) {
+            return this.setState({
+                isPasswordError: true
+            });
+        }
+
+        this.props.showProgressbar();
         const user = {
             email: this.state.email,
             password: this.state.password
@@ -111,16 +124,22 @@ class LoginForm extends React.Component {
 
         Api.post('user/login/', user)
             .then(result => {
-                console.log(result);
+                this.props.dimissProgressbar();
             })
-            .catch(err => {
-                console.log(err);
+            .catch(error => {
+                if (error.response.status === 403) {
+                    this.props.dimissProgressbar();
+                    this.props.showDialog(false, 'Email unActive');
+                } else {
+                    this.setState({
+                        isEmailError: true,
+                        isPasswordError: true
+                    });
+                }
             });
     }
 
     registerEvent(e) {
-        //this.props.showDialog(true); // This is show dialog
-
         // Check name is empty
         if (this.checkTextIsEmpty(this.state.name)) {
             return this.setState({
@@ -135,19 +154,21 @@ class LoginForm extends React.Component {
             });
         }
 
+        // Check password is empty
         if (this.checkTextIsEmpty(this.state.password)) {
             return this.setState({
                 isPasswordError: true
             });
         }
 
-        this.props.showProgressbar();
+        // Check repassword and password
         if (this.state.password != this.state.repassword) {
             return this.setState({
                 isRePasswordError: true
             });
         }
 
+        this.props.showProgressbar();
         const user = {
             email   :   this.state.email,
             name    :   this.state.name,

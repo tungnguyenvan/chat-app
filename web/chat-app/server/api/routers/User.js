@@ -145,7 +145,7 @@ router.post('/login', (req, res, next) => {
                     message: 'auth failed'
                 });
             }
-
+            
             if (!result[0].is_active) {
                 return res.status(403).json({
                     error: 'Account unactived'
