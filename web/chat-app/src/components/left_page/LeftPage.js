@@ -17,7 +17,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-const drawerWidth = 240;
+const drawerWidth = 320;
 
 const useStyles = makeStyles(theme => ({
   root: {
