@@ -1,8 +1,12 @@
 import React from 'react';
 //import Avatar from 'react-avatar';
-import { Container, Navbar, Nav } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 import Common from '../../Common';
 
@@ -11,24 +15,16 @@ class Topbar extends React.Component {
     render() {
       const { classes, isShowProgressbar } = this.props;
         return (
-          <div>
-          <Navbar bg="light" expand="lg">
-          <Container>
-
-            <Navbar.Brand href="#home">
+        <div className={classes.root}>
+          <AppBar position="static" color="default">
+            <Toolbar>
+              <Typography variant="h6" color="inherit">
                 { Common.APP_NAME }
-            </Navbar.Brand>
-
-            <Nav>
-              <Navbar.Text>
-                Created by: <a href='#About'>Nguyen Van Tung</a>
-              </Navbar.Text>
-            </Nav>
-            
-          </Container>
-          </Navbar>
+              </Typography>
+            </Toolbar>
+          </AppBar>
           { isShowProgressbar && <LinearProgress classes={{colorPrimary: classes.colorPrimary}} /> }
-          </div>
+        </div>
         );
     }
     

@@ -131,6 +131,7 @@ class LoginForm extends React.Component {
                     this.props.dimissProgressbar();
                     this.props.showDialog(false, 'Email unActive');
                 } else {
+                    this.props.dimissProgressbar();
                     this.setState({
                         isEmailError: true,
                         isPasswordError: true

@@ -13,7 +13,6 @@ class LoginPage extends React.Component {
         super(props);
 
         this.state = {
-            isShowProgressbar   : true,
             isLogin             : true,
             registerDialogIsOpen : false,
             registerSuccess      : false,
@@ -21,22 +20,8 @@ class LoginPage extends React.Component {
         };
 
         this.onToggleLogin = this.onToggleLogin.bind(this);
-        this.showProgressbar = this.showProgressbar.bind(this);
         this.showDialog = this.showDialog.bind(this);
-        this.dimissProgressbar = this.dimissProgressbar.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
-    }
-
-    showProgressbar() {
-        this.setState({
-            isShowProgressbar : true,
-        });
-    }
-
-    dimissProgressbar() {
-        this.setState({
-            isShowProgressbar :  false
-        });
     }
 
     showDialog(registerSuccess, messageRegister) { //TODO: remove token
@@ -54,12 +39,6 @@ class LoginPage extends React.Component {
         });
     }
 
-    componentDidMount() {
-        this.setState({
-            isShowProgressbar: false
-        });
-    }
-
     onToggleLogin() {
         this.setState({
             isLogin             : !this.state.isLogin
@@ -70,14 +49,13 @@ class LoginPage extends React.Component {
         console.log(this.state.isLogin);
         return (
             <div>
-                <Topbar isShowProgressbar={this.state.isShowProgressbar} />
                 <Container>
                     <LoginForm 
                         onToggleLogin={this.onToggleLogin} 
                         isLogin={this.state.isLogin} 
-                        showProgressbar={this.showProgressbar}
+                        showProgressbar={this.props.showProgressbar}
                         showDialog={this.showDialog}
-                        dimissProgressbar={this.dimissProgressbar}/>
+                        dimissProgressbar={this.props.dimissProgressbar}/>
 
                     <RegisterDialog 
                         registerDialogIsOpen={this.state.registerDialogIsOpen} 
