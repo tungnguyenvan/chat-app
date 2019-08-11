@@ -8,7 +8,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      isShowProgressbar:  true
+      isShowProgressbar:  true,
+      token:  '',
     }
 
     this.showProgressbar = this.showProgressbar.bind(this);

@@ -2,7 +2,6 @@ import './LoginPage.css';
 import React from 'react';
 import { Container } from 'react-bootstrap'
 
-import Topbar from '../../components/topbar/Topbar';
 import LoginForm from '../../components/login/LoginForm';
 import RegisterDialog from '../../dialogs/register/RegisterDialog';
 
