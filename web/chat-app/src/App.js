@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import LoginPage from './pages/login/LoginPage';
 import TopBar from './components/topbar/Topbar';
+import MainPage from './pages/main/MainPage'
 
 class App extends React.Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class App extends React.Component {
 
     this.state = {
       isShowProgressbar:  true,
-      token:  '',
+      token:  'abc.com',
     }
 
     this.showProgressbar = this.showProgressbar.bind(this);
@@ -37,8 +38,14 @@ class App extends React.Component {
   render() {
     return (
       <div className="App" align='center'>
-        <TopBar isShowProgressbar={this.state.isShowProgressbar}/>
-        <LoginPage showProgressbar={this.showProgressbar} dimissProgressbar={this.dimissProgressbar}/>
+        {
+          this.state.token && <MainPage />
+          || 
+          <div>
+            <TopBar isShowProgressbar={this.state.isShowProgressbar}/>
+            <LoginPage showProgressbar={this.showProgressbar} dimissProgressbar={this.dimissProgressbar}/>
+          </div>
+        }
       </div>
     );
   }
