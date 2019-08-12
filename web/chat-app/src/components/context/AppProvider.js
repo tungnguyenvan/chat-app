@@ -41,3 +41,5 @@ class AppProvider extends React.Component {
         );
     }
 }
+
+export default AppProvider;
