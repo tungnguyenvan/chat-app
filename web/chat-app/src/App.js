@@ -42,7 +42,7 @@ class App extends React.Component {
           this.state.token && <MainPage />
           || 
           <div>
-            <TopBar isShowProgressbar={this.state.isShowProgressbar}/>
+            <TopBar/>
             <LoginPage showProgressbar={this.showProgressbar} dimissProgressbar={this.dimissProgressbar}/>
           </div>
         }
