@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import Common from '../../Common'
 import AppProvider from '../context/AppProvider'
 
-const AppContext = React.createContext()
+const AppContext = React.createContext(defaultValue)
 
 class Topbar extends React.Component {
 
