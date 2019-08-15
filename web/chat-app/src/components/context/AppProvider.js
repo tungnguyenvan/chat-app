@@ -1,5 +1,5 @@
 import React from 'react';
-const AppContext = React.createContext();
+import AppContext from './AppContext'
 
 class AppProvider extends React.Component {
     constructor(props) {
@@ -8,11 +8,11 @@ class AppProvider extends React.Component {
         this.state = {
             // Show progress bar
             isShowProgressBar: true,
-            showProgressbar: this.showProgressbar(isShow),
+            showProgressbar: this.showProgressbar(),
 
             // Token
             userInfo:  {},
-            setUserInfo:   this.setUserInfo(user),
+            setUserInfo:   this.setUserInfo(),
         }
 
         this.showProgressbar = this.showProgressbar.bind(this);
@@ -35,9 +35,11 @@ class AppProvider extends React.Component {
 
     render() {
         return (
-            <AppContext.Propvider value={this.state}>
-
-            </AppContext.Propvider>
+            <AppContext.Provider value={this.state}>
+                {
+                    this.props.children
+                }
+            </AppContext.Provider>
         );
     }
 }

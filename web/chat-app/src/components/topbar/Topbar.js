@@ -7,9 +7,9 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 
 import Common from '../../Common'
-import AppProvider from '../context/AppProvider'
 
-const AppContext = React.createContext(defaultValue)
+import AppProvider from '../context/AppProvider'
+import AppContext from '../context/AppContext'
 
 class Topbar extends React.Component {
 
@@ -17,21 +17,20 @@ class Topbar extends React.Component {
       const { classes } = this.props;
         return (
         <div className={classes.root}>
-
-          <AppBar position="static" color="default">
-            <Toolbar>
-              <Typography variant="h6" color="inherit">
-                { Common.APP_NAME }
-              </Typography>
-            </Toolbar>
-          </AppBar>
-
           <AppProvider>
+            <AppBar position="static" color="default">
+              <Toolbar>
+                <Typography variant="h6" color="inherit">
+                  { Common.APP_NAME }
+                </Typography>
+              </Toolbar>
+            </AppBar>
+
             <AppContext.Consumer>
               { (context) => context.isShowProgressBar && <LinearProgress classes={{colorPrimary: classes.colorPrimary}} /> }
             </AppContext.Consumer>
+            
           </AppProvider>
-
         </div>
         );
     }

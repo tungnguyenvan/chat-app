@@ -10,7 +10,7 @@ class App extends React.Component {
 
     this.state = {
       isShowProgressbar:  true,
-      token:  'abc.com',
+      token:  '',
     }
 
     this.showProgressbar = this.showProgressbar.bind(this);
@@ -19,7 +19,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.setState({
-      isShowProgressbar: false
+      isShowProgressbar: true
     })
   }
 
