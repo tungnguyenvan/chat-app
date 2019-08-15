@@ -116,7 +116,7 @@ class LoginForm extends React.Component {
             });
         }
 
-        this.props.showProgressbar();
+        this.props.showProgressbar(true);
         const user = {
             email: this.state.email,
             password: this.state.password
@@ -124,14 +124,14 @@ class LoginForm extends React.Component {
 
         Api.post('user/login/', user)
             .then(result => {
-                this.props.dimissProgressbar();
+                this.props.showProgressbar(false);
             })
             .catch(error => {
                 if (error.response.status === 403) {
-                    this.props.dimissProgressbar();
+                    this.props.showProgressbar(false);
                     this.props.showDialog(false, 'Email unActive');
                 } else {
-                    this.props.dimissProgressbar();
+                    this.props.showProgressbar(false);
                     this.setState({
                         isEmailError: true,
                         isPasswordError: true
@@ -169,7 +169,7 @@ class LoginForm extends React.Component {
             });
         }
 
-        this.props.showProgressbar();
+        this.props.showProgressbar(true);
         const user = {
             email   :   this.state.email,
             name    :   this.state.name,
@@ -181,11 +181,11 @@ class LoginForm extends React.Component {
         Api.post('user/signup', user)
             .then(result => {
                 this.props.showDialog(true, result.data.active_account);
-                this.props.dimissProgressbar();
+                this.props.showProgressbar(false);
             })
             .catch(err => {
                 this.props.showDialog(false, err);
-                this.props.dimissProgressbar();
+                this.props.showProgressbar(false);
             });
     }
 

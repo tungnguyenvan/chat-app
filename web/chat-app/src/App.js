@@ -14,24 +14,17 @@ class App extends React.Component {
     }
 
     this.showProgressbar = this.showProgressbar.bind(this);
-    this.dimissProgressbar = this.dimissProgressbar.bind(this);
   }
 
   componentDidMount() {
     this.setState({
-      isShowProgressbar: true
+      isShowProgressbar : false
     })
   }
 
-  // Progress bar
-  showProgressbar() {
+  showProgressbar(isShow) {
     this.setState({
-        isShowProgressbar : true,
-    });
-  }
-  dimissProgressbar() {
-    this.setState({
-      isShowProgressbar:  false
+      isShowProgressbar: isShow
     })
   }
   
@@ -42,8 +35,9 @@ class App extends React.Component {
           this.state.token && <MainPage />
           || 
           <div>
-            <TopBar/>
-            <LoginPage showProgressbar={this.showProgressbar} dimissProgressbar={this.dimissProgressbar}/>
+            <TopBar isShowProgressbar={this.state.isShowProgressbar}/>
+            <LoginPage
+              showProgressbar={this.showProgressbar}/>
           </div>
         }
       </div>

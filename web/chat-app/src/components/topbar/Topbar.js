@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 //import Avatar from 'react-avatar';
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { withStyles } from '@material-ui/core/styles'
@@ -8,32 +8,30 @@ import Typography from '@material-ui/core/Typography'
 
 import Common from '../../Common'
 
-import AppProvider from '../context/AppProvider'
-import AppContext from '../context/AppContext'
-
 class Topbar extends React.Component {
 
-    render() {
-      const { classes } = this.props;
-        return (
-        <div className={classes.root}>
-          <AppProvider>
-            <AppBar position="static" color="default">
-              <Toolbar>
-                <Typography variant="h6" color="inherit">
-                  { Common.APP_NAME }
-                </Typography>
-              </Toolbar>
-            </AppBar>
+  constructor(props) {
+    super(props);
+  }
 
-            <AppContext.Consumer>
-              { (context) => context.isShowProgressBar && <LinearProgress classes={{colorPrimary: classes.colorPrimary}} /> }
-            </AppContext.Consumer>
-            
-          </AppProvider>
-        </div>
-        );
-    }
+  render() {
+    const { classes, isShowProgressbar } = this.props;
+      return (
+      <div className={classes.root}>
+
+          <AppBar position="static" color="default">
+            <Toolbar>
+              <Typography variant="h6" color="inherit">
+                { Common.APP_NAME }
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          
+          { isShowProgressbar && 
+            <LinearProgress classes={{colorPrimary: classes.colorPrimary}} /> }
+      </div>
+      );
+  }
     
 }
 
