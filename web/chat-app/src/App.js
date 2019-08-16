@@ -1,8 +1,8 @@
 import './App.css';
 import React from 'react';
-import LoginPage from './pages/login/LoginPage';
-import TopBar from './components/topbar/Topbar';
-import MainPage from './pages/main/MainPage'
+import LoginPage from './uis/pages/login/LoginPage';
+import TopBar from './uis/components/topbar/Topbar';
+import MainPage from './uis/pages/main/MainPage'
 
 class App extends React.Component {
   constructor(props) {
