@@ -27,8 +27,10 @@ class Topbar extends React.Component {
             </Toolbar>
           </AppBar>
           
-          { isShowProgressbar && 
-            <LinearProgress classes={{colorPrimary: classes.colorPrimary}} /> }
+          { 
+            isShowProgressbar && <LinearProgress classes={{colorPrimary: classes.colorPrimary}} /> 
+          }
+
       </div>
       );
   }
