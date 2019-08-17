@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, styled } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Api from '../../../Api';
+import Api from '../../../controllers/Api';
 
 const Common = require('./LoginFormCommon');
 
