@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, styled } from '@material-ui/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Api from '../../Api';
+import Api from '../../../Api';
 
 const Common = require('./LoginFormCommon');
 
@@ -297,13 +297,17 @@ class LoginForm extends React.Component {
                                             isLogin &&
                                             <Col >
                                                 <div align='right'>
-                                                    <MyButton onClick={this.loginEvent}>{ Common.LOGIN_TITLE }</MyButton>
+                                                <Button variant="contained" color="primary" className={classes.button} onClick={this.loginEvent}>
+                                                    { Common.LOGIN_TITLE }
+                                                </Button>
                                                 </div>
                                             </Col> 
                                             ||
                                             <Col >
                                                 <div align='right'>
-                                                    <MyButton onClick={this.registerEvent}>{ Common.REGISTER_TITLE }</MyButton>
+                                                <Button variant="contained" color="primary" className={classes.button} onClick={this.registerEvent}>
+                                                { Common.REGISTER_TITLE }
+                                                </Button>
                                                 </div>
                                             </Col>
                                         }
