@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Run server
+cd ../web/chat-app
+npm run-script server

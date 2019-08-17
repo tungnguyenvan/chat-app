@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Start database
+~/Documents/lib/mongodb/bin/mongod --dbpath ~/Documents/lib/mongodb/database/
