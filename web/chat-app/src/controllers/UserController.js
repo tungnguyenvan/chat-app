@@ -8,20 +8,20 @@ class UserController {
     login(userModel, successAction, failAction) {
         Api.post('user/login/', userModel)
             .then(result => {
-                successAction(result);
+                return successAction(result);
             })
             .catch(error => {
-                failAction(error);
+                return failAction(error);
             });
     }
 
     register(userModel, successAction, failAction) {
         Api.post('user/signup', userModel)
             .then(result => {
-                successAction(result)
+                return successAction(result)
             })
             .catch(err => {
-                failAction(err)
+                return failAction(err)
             });
     }
 }

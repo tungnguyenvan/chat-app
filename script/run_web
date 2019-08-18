@@ -1,0 +1,4 @@
+#! /bin/bash
+
+cd ../web/chat-app/
+npm start

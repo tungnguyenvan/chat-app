@@ -14,6 +14,7 @@ class App extends React.Component {
     }
 
     this.showProgressbar = this.showProgressbar.bind(this);
+    this.setToken = this.setToken.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +28,13 @@ class App extends React.Component {
       isShowProgressbar: isShow
     })
   }
+
+  setToken(token) {
+    console.log(token)
+    this.setState({
+      token: token
+    })
+  }
   
   render() {
     return (
@@ -37,7 +45,8 @@ class App extends React.Component {
           <div>
             <TopBar isShowProgressbar={this.state.isShowProgressbar}/>
             <LoginPage
-              showProgressbar={this.showProgressbar}/>
+              showProgressbar={this.showProgressbar}
+              setToken={this.setToken}/>
           </div>
         }
       </div>

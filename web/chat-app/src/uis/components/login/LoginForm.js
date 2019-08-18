@@ -125,7 +125,8 @@ class LoginForm extends React.Component {
     }
 
     onLoginSuccess(data) {
-        console.log(data);
+        console.log(data)
+        this.props.setToken(data.data.result.token);
         this.props.showProgressbar(false);
     }
 

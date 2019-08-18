@@ -53,7 +53,8 @@ class LoginPage extends React.Component {
                         isLogin={this.state.isLogin} 
                         showProgressbar={this.props.showProgressbar}
                         showDialog={this.showDialog}
-                        dimissProgressbar={this.props.dimissProgressbar}/>
+                        dimissProgressbar={this.props.dimissProgressbar}
+                        setToken={this.props.setToken}/>
 
                     <RegisterDialog 
                         registerDialogIsOpen={this.state.registerDialogIsOpen} 
