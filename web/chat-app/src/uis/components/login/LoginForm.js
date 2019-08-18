@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button'
 import { makeStyles, styled } from '@material-ui/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import Api from '../../../controllers/Api'
 
 const Common = require('./LoginFormCommon')
 var UserController = require('../../../controllers/UserController')
@@ -15,22 +14,19 @@ const classes = makeStyles(theme => ({
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-      },
-    card: {
-        
-    }
-}));
+      }
+}))
 
 const ButtonRegister = styled(Button)({
     color: 'blue',
     border: 0,
     fontSize: 11
-});
+})
 
 const MyCard = styled(Card)({
     minWidth: 400,
     maxWidth: 400
-});
+})
 
 
 class LoginForm extends React.Component {
@@ -52,20 +48,20 @@ class LoginForm extends React.Component {
             isRePasswordError: false,
         }
 
-        this.userController = UserController.default;
+        this.userController     = UserController.default;
 
-        this.loginEvent = this.loginEvent.bind(this)
-        this.registerEvent = this.registerEvent.bind(this)
-        this.onNameChange = this.onNameChange.bind(this)
-        this.onEmailChange = this.onEmailChange.bind(this)
-        this.onPasswordChange = this.onPasswordChange.bind(this)
+        this.loginEvent         = this.loginEvent.bind(this)
+        this.registerEvent      = this.registerEvent.bind(this)
+        this.onNameChange       = this.onNameChange.bind(this)
+        this.onEmailChange      = this.onEmailChange.bind(this)
+        this.onPasswordChange   = this.onPasswordChange.bind(this)
         this.onRePasswordChange = this.onRePasswordChange.bind(this)
 
         this.onLoginSuccess     = this.onLoginSuccess.bind(this)
-        this.onLoginFail     = this.onLoginFail.bind(this)
+        this.onLoginFail        = this.onLoginFail.bind(this)
 
-        this.onRegisterSuccess = this.onRegisterSuccess.bind(this)
-        this.onRegisterFail = this.onRegisterFail.bind(this);
+        this.onRegisterSuccess  = this.onRegisterSuccess.bind(this)
+        this.onRegisterFail     = this.onRegisterFail.bind(this);
     }
 
     checkTextIsEmpty(str) {
@@ -105,14 +101,14 @@ class LoginForm extends React.Component {
         if (this.checkTextIsEmpty(this.state.email)) {
             return this.setState({
                 isEmailError: true
-            });
+            })
         }
 
         // Check password is empty
         if (this.checkTextIsEmpty(this.state.password)) {
             return this.setState({
                 isPasswordError: true
-            });
+            })
         }
 
         this.props.showProgressbar(true);
@@ -121,25 +117,24 @@ class LoginForm extends React.Component {
             password: this.state.password
         }
 
-        this.userController.login(user, this.onLoginSuccess, this.onLoginFail);
+        this.userController.login(user, this.onLoginSuccess, this.onLoginFail)
     }
 
     onLoginSuccess(data) {
-        console.log(data)
-        this.props.setToken(data.data.result.token);
-        this.props.showProgressbar(false);
+        this.props.setToken(data.data.result.token)
+        this.props.showProgressbar(false)
     }
 
     onLoginFail(error) {
         if (error.response.status === 403) {
-            this.props.showProgressbar(false);
-            this.props.showDialog(false, 'Email unActive');
+            this.props.showProgressbar(false)
+            this.props.showDialog(false, 'Email unActive')
         } else {
             this.props.showProgressbar(false);
             this.setState({
                 isEmailError: true,
                 isPasswordError: true
-            });
+            })
         }
     }
 
@@ -148,14 +143,14 @@ class LoginForm extends React.Component {
         if (this.checkTextIsEmpty(this.state.name)) {
             return this.setState({
                 isNameError: true
-            });
+            })
         }
         
         // Check email is empty
         if (this.checkTextIsEmpty(this.state.email)) {
             return this.setState({
                 isEmailError: true
-            });
+            })
         }
 
         // Check password is empty
@@ -169,7 +164,7 @@ class LoginForm extends React.Component {
         if (this.state.password != this.state.repassword) {
             return this.setState({
                 isRePasswordError: true
-            });
+            })
         }
 
         this.props.showProgressbar(true);
@@ -185,17 +180,17 @@ class LoginForm extends React.Component {
     }
 
     onRegisterSuccess(data) {
-        this.props.showDialog(true, data.data.active_account);
-        this.props.showProgressbar(false);
+        this.props.showDialog(true, data.data.active_account)
+        this.props.showProgressbar(false)
     }
 
     onRegisterFail(error) {
-        this.props.showDialog(false, error);
-        this.props.showProgressbar(false);
+        this.props.showDialog(false, error)
+        this.props.showProgressbar(false)
     }
 
     render() {
-        const { onToggleLogin, isLogin } = this.props;
+        const { onToggleLogin, isLogin } = this.props
 
         return (
             <div className='login-form'>
@@ -228,9 +223,6 @@ class LoginForm extends React.Component {
                                                     margin="normal"
                                                     variant="outlined"
                                                     fullWidth/>
-                                            </Col>
-                                            <Col>
-
                                             </Col>
                                             </div>
                                         }
