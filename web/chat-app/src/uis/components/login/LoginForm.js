@@ -1,14 +1,15 @@
-import './LoginForm.css';
-import React from 'react';
-import { Row, Col, Form } from 'react-bootstrap';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { makeStyles, styled } from '@material-ui/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Api from '../../../controllers/Api';
+import './LoginForm.css'
+import React from 'react'
+import { Row, Col, Form } from 'react-bootstrap'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import { makeStyles, styled } from '@material-ui/styles'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import Api from '../../../controllers/Api'
 
-const Common = require('./LoginFormCommon');
+const Common = require('./LoginFormCommon')
+var UserController = require('../../../controllers/UserController')
 
 const classes = makeStyles(theme => ({
     textField: {
@@ -19,16 +20,6 @@ const classes = makeStyles(theme => ({
         
     }
 }));
-
-const MyButton = styled(Button)({
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    border: 0,
-    borderRadius: 4,
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: 'white',
-    height: 48,
-    padding: '0 30px',
-});
 
 const ButtonRegister = styled(Button)({
     color: 'blue',
@@ -61,12 +52,20 @@ class LoginForm extends React.Component {
             isRePasswordError: false,
         }
 
-        this.loginEvent = this.loginEvent.bind(this);
-        this.registerEvent = this.registerEvent.bind(this);
-        this.onNameChange = this.onNameChange.bind(this);
-        this.onEmailChange = this.onEmailChange.bind(this);
-        this.onPasswordChange = this.onPasswordChange.bind(this);
-        this.onRePasswordChange = this.onRePasswordChange.bind(this);
+        this.userController = UserController.default;
+
+        this.loginEvent = this.loginEvent.bind(this)
+        this.registerEvent = this.registerEvent.bind(this)
+        this.onNameChange = this.onNameChange.bind(this)
+        this.onEmailChange = this.onEmailChange.bind(this)
+        this.onPasswordChange = this.onPasswordChange.bind(this)
+        this.onRePasswordChange = this.onRePasswordChange.bind(this)
+
+        this.onLoginSuccess     = this.onLoginSuccess.bind(this)
+        this.onLoginFail     = this.onLoginFail.bind(this)
+
+        this.onRegisterSuccess = this.onRegisterSuccess.bind(this)
+        this.onRegisterFail = this.onRegisterFail.bind(this);
     }
 
     checkTextIsEmpty(str) {
@@ -122,22 +121,25 @@ class LoginForm extends React.Component {
             password: this.state.password
         }
 
-        Api.post('user/login/', user)
-            .then(result => {
-                this.props.showProgressbar(false);
-            })
-            .catch(error => {
-                if (error.response.status === 403) {
-                    this.props.showProgressbar(false);
-                    this.props.showDialog(false, 'Email unActive');
-                } else {
-                    this.props.showProgressbar(false);
-                    this.setState({
-                        isEmailError: true,
-                        isPasswordError: true
-                    });
-                }
+        this.userController.login(user, this.onLoginSuccess, this.onLoginFail);
+    }
+
+    onLoginSuccess(data) {
+        console.log(data);
+        this.props.showProgressbar(false);
+    }
+
+    onLoginFail(error) {
+        if (error.response.status === 403) {
+            this.props.showProgressbar(false);
+            this.props.showDialog(false, 'Email unActive');
+        } else {
+            this.props.showProgressbar(false);
+            this.setState({
+                isEmailError: true,
+                isPasswordError: true
             });
+        }
     }
 
     registerEvent(e) {
@@ -178,18 +180,17 @@ class LoginForm extends React.Component {
             birth_day:      0, // TODO: update birth day timestamp
         }
 
-        Api.post('user/signup', user)
-            .then(result => {
-                this.props.showDialog(true, result.data.active_account);
-                this.props.showProgressbar(false);
-            })
-            .catch(err => {
-                this.props.showDialog(false, err);
-                this.props.showProgressbar(false);
-            });
+        this.userController.register(user, this.onRegisterSuccess, this.onRegisterFail)
     }
 
-    componentDidMount() {
+    onRegisterSuccess(data) {
+        this.props.showDialog(true, data.data.active_account);
+        this.props.showProgressbar(false);
+    }
+
+    onRegisterFail(error) {
+        this.props.showDialog(false, error);
+        this.props.showProgressbar(false);
     }
 
     render() {

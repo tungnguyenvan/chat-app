@@ -31,7 +31,7 @@ class RegisterDialog extends React.Component {
                                     registerSuccess && Common.ALERT_CONTENT_SUCCESS || Common.ALERT_CONTENT_FAIL
                                 }
                                 {
-                                    ' \n[Message: ' + messageRegister + ']'
+                                    ' \nMessage: ' + messageRegister + ''
                                 }
                             </DialogContentText>
                             <DialogActions>
