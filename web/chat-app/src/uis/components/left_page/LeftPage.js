@@ -1,4 +1,5 @@
 import React from 'react';
+import './LeftPage.css'
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -15,6 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, withStyles, useTheme } from '@material-ui/core/styles';
+
 
 const drawerWidth = 320;
 
@@ -44,6 +46,9 @@ const styles = theme => ({
   drawerPaper: {
     width: drawerWidth,
   },
+  drawerHeader: {
+    height: 64,
+  }
   // content: {
   //   flexGrow: 1,
   //   padding: theme.spacing(3),
@@ -69,7 +74,6 @@ class LeftPage extends React.Component {
 
     const drawer = (
       <div>
-        <div className={classes.toolbar} />
         <Divider />
         <List>
           {this.state.data.map((text, index) => (
@@ -87,14 +91,14 @@ class LeftPage extends React.Component {
         <CssBaseline>
           <AppBar className={classes.appBar}>
             <Toolbar>
-              <IconButton
+              {/* <IconButton
                 color="inherit"
                 aria-label="open drawer"
                 edge="start"
                 onClick={this.handleDrawerToggle}
                 className={classes.menuButton}>
                   <MenuIcon />
-              </IconButton>
+              </IconButton> */}
               <Typography variant="h6" noWrap>
                 Responsive drawer
               </Typography>
@@ -110,6 +114,17 @@ class LeftPage extends React.Component {
                 variant="permanent"
                 open >
                   {drawer}
+              </Drawer>
+            </Hidden>
+            <Hidden xsDown implementation="css">
+              <Drawer
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+                variant="permanent"
+                open
+              >
+                {drawer}
               </Drawer>
             </Hidden>
           </nav>
