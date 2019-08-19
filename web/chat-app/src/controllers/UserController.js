@@ -24,6 +24,17 @@ class UserController {
                 return failAction(err)
             });
     }
+
+    get(userId, successAction, failAction) {
+        Api.post('user/' + userId)
+            .then(result => {
+                return successAction(result)
+            })
+            .catch(err => {
+                return failAction(err)
+            })
+    }
 }
+
 var userController = new UserController()
 export default userController
