@@ -12,15 +12,13 @@ class UserAppBar extends React.Component {
 
     render() {
         return (
-        <div className='user_appbar_root'>
-            <AppBar position='static' color='default'>
-                <Toolbar>
-                <Typography variant="p" color="inherit">
-                    UserName
-                </Typography>
-                </Toolbar>
-            </AppBar>
-        </div>
+        <AppBar position='static' color='default'>
+            <Toolbar>
+            <Typography variant="p" color="inherit">
+                UserName
+            </Typography>
+            </Toolbar>
+        </AppBar>
         )
     }
 }

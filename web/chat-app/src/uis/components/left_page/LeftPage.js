@@ -90,34 +90,15 @@ class LeftPage extends React.Component {
 
     return ( 
       <div className={classes.root}>
-        <CssBaseline>
-          <AppBar className={classes.appBar}>
+        <AppBar position='static' color='default'>
             <Toolbar>
-              {/* <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={this.handleDrawerToggle}
-                className={classes.menuButton}>
-                  <MenuIcon />
-              </IconButton> */}
-              <Typography variant="h6" noWrap>
-                Responsive drawer
-              </Typography>
+            <Typography variant="h6" color="default">
+                ABCXYZ
+            </Typography>
             </Toolbar>
-          </AppBar>
+        </AppBar>
 
           <nav className={classes.drawer} aria-label="mailbox folders">
-            <Hidden xsDown implementation="css">
-              <Drawer 
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-                variant="permanent"
-                open >
-                  {drawer}
-              </Drawer>
-            </Hidden>
             <Hidden xsDown implementation="css">
               <Drawer
                 classes={{
@@ -130,8 +111,6 @@ class LeftPage extends React.Component {
               </Drawer>
             </Hidden>
           </nav>
-
-        </CssBaseline>
       </div>)
   }
 }
